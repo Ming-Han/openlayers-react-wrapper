@@ -2,12 +2,13 @@
   "name": "maptest",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/ol.js",
   "scripts": {
     "dev": "webpack-dev-server --devtool cheap-module-eval-source-map --progress --colors --hot --content-base build",
-    "webpack" : "webpack -p"
+    "webpack": "webpack",
+    "build": "babel src --out-dir lib --copy-files --ignore index.js,index.html"
   },
-  "author": "",
+  "author": "cmh",
   "license": "ISC",
   "dependencies": {
     "classnames": "^2.2.5",
@@ -17,7 +18,9 @@
     "react-dom": "^16.3.2"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
+    "babel-env": "^2.4.1",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
