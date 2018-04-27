@@ -1,9 +1,7 @@
 import * as React from 'react';
 import MapContext from './mapContext';
-import ol_map from 'ol/map';
-import ol_view from 'ol/view';
 import ol_source_OSM from 'ol/source/osm';
-import ol_layer_Tile from 'ol/layer/tile';
+import ol_layer_Tile from 'ol/layer/Tile';
 import style from './Map.css';
 
 
