@@ -8,7 +8,7 @@ class Vector extends React.Component{
 
 	constructor(props){
 		super(props);
-		this.layer;
+		this.vector;
 		this.options = {
 			renderMode : undefined,
 			renderOrder : undefined,
@@ -44,19 +44,19 @@ class Vector extends React.Component{
 	}
 
 	componentDidMount() {
-		if(this.layer != undefined)
-			this.props.mapComponent.map.removeLayer(this.layer);
+		if(this.vector != undefined)
+			this.props.mapComponent.map.removeLayer(this.vector);
 		let options = Method.getOptions(Object.assign(this.options, this.props));
 
-		this.layer = new ol_layer_Vector(options);
+		this.vector = new ol_layer_Vector(options);
 		if(this.props.zIndex){
-      		this.layer.setZIndex(this.props.zIndex);
+      		this.vector.setZIndex(this.props.zIndex);
     	} 
-    	this.props.mapComponent.map.addLayer(this.layer);
+    	this.props.mapComponent.map.addLayer(this.vector);
 
 		let olEvents = Method.getEvents(this.events, this.props);
 		for(let eventName in olEvents) {
-      		this.layer.on(eventName, olEvents[eventName]);
+      		this.vector.on(eventName, olEvents[eventName]);
     	}
 	}
 
