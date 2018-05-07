@@ -6,18 +6,20 @@ import ol_source_OSM from 'ol/source/osm';
 class Tile extends React.Component{
 	constructor(props){
 		super(props);
+		this.name = props.name;
 	}
 
 	componentDidMount() {
 
 		let options = {}; 
 		options.source = new ol_source_OSM();
-		this.layer = new ol_layer_Tile(options);
-		this.props.mapComponent.map.addLayer(this.layer);
+		this.tile = new ol_layer_Tile(options);
+		this.props.mapComponent.map.layers[this.name] = this;
+		this.props.mapComponent.map.addLayer(this.tile);
 	}
 
 	componentWillUnmount() {
-		this.props.mapComponent.map.removeLayer(this.layer);
+		this.props.mapComponent.map.removeLayer(this.tile);
 	}
 
 	render() {

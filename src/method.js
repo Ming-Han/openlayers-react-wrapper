@@ -1,4 +1,11 @@
 function getPropsKey(eventName) {
+  return eventName
+    .replace(/(\:[a-z])/g, $1 => $1.toUpperCase())
+    .replace(/^[a-z]/, $1 => $1.toUpperCase())
+    .replace(':','')
+}
+
+function getPropsKeyWithOn(eventName) {
   return 'on' + eventName
     .replace(/(\:[a-z])/g, $1 => $1.toUpperCase())
     .replace(/^[a-z]/, $1 => $1.toUpperCase())
@@ -18,12 +25,12 @@ export class Method {
       	}
     }
     return options;
-}
+	}
 
   static  getEvents(events, props) {
   	let prop2EventMap = {};
   	for(let key in events) {
-  		prop2EventMap[getPropsKey(key)] = key;
+  		prop2EventMap[getPropsKeyWithOn(key)] = key;
   	}	 
 
   	let ret = {};
@@ -33,8 +40,8 @@ export class Method {
     	if (typeof prop !== 'undefined' && propName.match(/^on[A-Z]/) && eventName) {
       		ret[eventName] = prop;
     	}
-	}
+		}
 
   	return ret;
-}
+	}	
 }

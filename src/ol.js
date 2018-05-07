@@ -1,17 +1,12 @@
 import Map from './map';
 import {Layers, Layer} from './layers/index';
 import View from './view';
-
-let ol = {
-	Map,
-	Layers,
-	Layer,
-	View
-}
+import MapContext from './mapContext';
 
 export {
 	Map,
 	Layers,
 	Layer,
-	View
+	View,
+	MapContext
 }

@@ -1,8 +1,7 @@
 import * as React from 'react';
 
 let defaultValue = {
-	Component : {},
-	map : {}
+	map : {},
 }
 
 let MapContext = React.createContext(defaultValue);

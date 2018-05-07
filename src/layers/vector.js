@@ -9,6 +9,7 @@ class Vector extends React.Component{
 	constructor(props){
 		super(props);
 		this.vector;
+		this.name = props.name;
 		this.options = {
 			renderMode : undefined,
 			renderOrder : undefined,
@@ -51,13 +52,16 @@ class Vector extends React.Component{
 		this.vector = new ol_layer_Vector(options);
 		if(this.props.zIndex){
       		this.vector.setZIndex(this.props.zIndex);
-    	} 
-    	this.props.mapComponent.map.addLayer(this.vector);
+		}
+		
+		this.props.mapComponent.map.layers[this.name] = this;
+		this.props.mapComponent.map.addLayer(this.vector);
+		
 
 		let olEvents = Method.getEvents(this.events, this.props);
 		for(let eventName in olEvents) {
       		this.vector.on(eventName, olEvents[eventName]);
-    	}
+		}
 	}
 
 	render() {
