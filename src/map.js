@@ -59,6 +59,11 @@ class Map extends React.Component{
 		this._map.addLayer(layers);
 	}
 
+	addControl(controls) {
+		console.log(controls)
+		this._map.addControl(controls);	
+	}
+
 	forEachFeatureAtPixel(pixel,callback,options) {
 		(options) ? null : options = {};
 		this.props.mapComponent.map._map.forEachFeatureAtPixel(pixel,callback,options);
@@ -67,6 +72,11 @@ class Map extends React.Component{
 	forEachLayerAtPixel() {
 		console.log('forEachFeatureAtPixel !');
 	}
+
+	getControls() {
+		return this._map.getControls();
+	}
+
 	removeLayer(layer) {
 		this._map.removeLayer(layer)
 	}

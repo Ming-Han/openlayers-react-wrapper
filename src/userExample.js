@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as ol from './ol';
+import 'ol/ol.css';
 import ol_source_Vector from 'ol/source/vector'
 import ol_format_geojson from 'ol/format/geojson';
 import ol_source_OSM from 'ol/source/osm';
@@ -322,6 +323,10 @@ class MapWrap extends React.Component{
             <ol.Layer.Tile name="osm" source={new ol_source_OSM()}/>
             <ol.Layer.Vector name="cell" source={vectorSource}/>	
           </ol.Layers>
+          <ol.Controls>
+            <ol.Control.FullScreen>
+            </ol.Control.FullScreen>
+          </ol.Controls>
           <ol.View projection="EPSG:4326" center = {[103.83308731028912,1.4124085414044851]} zoom={16} />
         </ol.Map>
     );

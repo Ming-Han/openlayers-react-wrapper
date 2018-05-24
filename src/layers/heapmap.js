@@ -2,12 +2,12 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import {Method} from '../Method';
 import MapContext from '../mapContext';
-import ol_layer_Heapmap from 'ol/layer/heapmap'
+import ol_layer_Heatmap from 'ol/layer/heatmap'
 
-class HeapMap extends React.Component{
+class HeatMap extends React.Component{
     constructor(props){
         super(props);
-        this._heapmap = undefined,
+        this._heatmap = undefined,
         this._name = props.name,
         this.options = {
             gradient : undefined,
@@ -45,18 +45,18 @@ class HeapMap extends React.Component{
     componentDidMount() {
 		let options = Method.getOptions(Object.assign(this.options, this.props));
 
-		this._heapmap = new ol_layer_Heapmap(options);
+		this._heatmap = new ol_layer_Heatmap(options);
 		if(this.props.zIndex){
       		this._vector.setZIndex(this.props.zIndex);
 		}
 		
 		this.props.mapComponent.map.layers[this._name] = this;
-		this.props.mapComponent.map.addLayer(this._heapmap);
+		this.props.mapComponent.map.addLayer(this._heatmap);
 		
 
 		let olEvents = Method.getEvents(this.events, this.props);
 		for(let eventName in olEvents) {
-      		this._heapmap.on(eventName, olEvents[eventName]);
+      		this._heatmap.on(eventName, olEvents[eventName]);
 		}
 	}
 
@@ -69,7 +69,7 @@ class HeapMap extends React.Component{
 	}
 }
 
-HeapMap.propTypes = {
+HeatMap.propTypes = {
 	name : PropTypes.string.isRequired,
 	source : PropTypes.object.isRequired
 }
@@ -77,7 +77,7 @@ HeapMap.propTypes = {
 export default props => (
   <MapContext.Consumer>
     {mapComponent => {
-      return (<HeapMap {...props} mapComponent={mapComponent} />)
+      return (<HeatMap {...props} mapComponent={mapComponent} />)
     }}
   </MapContext.Consumer>
 );
