@@ -304,10 +304,11 @@ var vectorSource = new ol_source_Vector({
 class MapWrap extends React.Component{
   constructor(props){
     super(props);
+    this.state = { fullscreen : false}
   }
 
   componentDidMount() {
-    
+    console.log('userExample Did ')
   }
 
   singleClick(e) {
@@ -316,19 +317,30 @@ class MapWrap extends React.Component{
     });
   }
 
+  enableFullStreen() {
+    this.setState({
+      fullscreen : true
+    })
+  }
+
   render() {
+    console.log('userExample render ')
     return (
+        <div>
         <ol.Map onClick={this.singleClick.bind(this)}>
           <ol.Layers>
-            <ol.Layer.Tile name="osm" source={new ol_source_OSM()}/>
-            <ol.Layer.Vector name="cell" source={vectorSource}/>	
+          <ol.Layer.Vector name="cell" source={vectorSource}/>
+            {
+              (this.state.fullscreen) ? (
+                <ol.Layer.Tile name="osm" source={new ol_source_OSM()}/>	
+              ) :
+              null
+            }  
           </ol.Layers>
-          <ol.Controls>
-            <ol.Control.FullScreen>
-            </ol.Control.FullScreen>
-          </ol.Controls>
           <ol.View projection="EPSG:4326" center = {[103.83308731028912,1.4124085414044851]} zoom={16} />
         </ol.Map>
+        <button onClick={() => this.enableFullStreen()}></button>
+        </div>
     );
   }
 }

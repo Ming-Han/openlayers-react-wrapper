@@ -1,13 +1,12 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import {Method} from '../Method';
+import {Method} from '../method';
 import MapContext from '../mapContext';
 import ol_layer_Image from 'ol/layer/image';
 
 class Image extends React.Component{
     constructor(props) {
         super(props);
-        this._name = props.name;
         this._image = undefined
         this.options = {
             opacity : undefined,
@@ -43,7 +42,7 @@ class Image extends React.Component{
       		this._image.setZIndex(this.props.zIndex);
 		}
 		
-		this.props.mapComponent.map.layers[this._name] = this;
+		this.props.mapComponent.map.layers(this._image);
 		this.props.mapComponent.map.addLayer(this._image);
 		
 
@@ -54,7 +53,7 @@ class Image extends React.Component{
 	}
 
 	componentWillUnmount() {
-		this.props.mapComponent.map._map.removeLayer(this._image);
+		this.props.mapComponent.map.removeLayer(this._image);
 	}
 
 	render() {
@@ -63,7 +62,6 @@ class Image extends React.Component{
 }
 
 Image.propTypes = {
-	name : PropTypes.string.isRequired,
 	source : PropTypes.object.isRequired
 }
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import {Method} from '../Method';
+import {Method} from '../method';
 import MapContext from '../mapContext';
 import ol_control from 'ol/control';
 

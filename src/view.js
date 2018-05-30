@@ -1,12 +1,13 @@
 import * as React from 'react';
 import MapContext from './mapContext';
-import {Method} from './Method';
+import {Method} from './method';
 import ol_view from 'ol/view';
 
 class View extends React.Component {
 
 	constructor(props){
 		super(props);
+		this._view = {};
 		this.options = {
 			center : undefined,
 			constrainRotation : undefined,
@@ -34,13 +35,14 @@ class View extends React.Component {
 
 	componentDidMount() {
 		let options = Method.getOptions(Object.assign(this.options, this.props));
-		this.view = new ol_view (options);
-		this.props.mapComponent.map.setView(this.view);
-
+		this._view = new ol_view (options);
+		this.props.mapComponent.map.setView(this._view);
+		this.props.mapComponent.map.view = this._view;
+		console.log('view didmount')
 		let olEvents = Method.getEvents(this.events, this.props);
 		for(let eventName in olEvents) {
-      		this.layer.on(eventName, olEvents[eventName]);
-    	}
+      this._view.on(eventName, olEvents[eventName]);
+    }
 	}
 
 	render() {

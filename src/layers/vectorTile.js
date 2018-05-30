@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import {Method} from '../Method';
+import {Method} from '../method';
 import MapContext from '../mapContext';
 import ol_layer_VectorTile from 'ol/layer/vectortile';
 
@@ -10,7 +10,6 @@ class VectorTile extends React.Component{
 	constructor(props){
 		super(props);
 		this._vectorTile;
-		this._name = props.name;
 		this.options = {
             renderBuffer : undefined,
             renderMode : undefined,
@@ -55,7 +54,7 @@ class VectorTile extends React.Component{
       		this._vectorTile.setZIndex(this.props.zIndex);
 		}
 		
-		this.props.mapComponent.map.layers[this._name] = this;
+		this.props.mapComponent.map.layers(this._vectorTile);
 		this.props.mapComponent.map.addLayer(this._vectorTile);
 		
 
@@ -66,7 +65,7 @@ class VectorTile extends React.Component{
 	}
 
 	componentWillUnmount() {
-		this.props.mapComponent.map._map.removeLayer(this._vectorTile);
+		this.props.mapComponent.map.removeLayer(this._vectorTile);
 	}
 
 	render() {
@@ -75,7 +74,6 @@ class VectorTile extends React.Component{
 }
 
 VectorTile.propTypes = {
-	name : PropTypes.string.isRequired,
 	source : PropTypes.object.isRequired
 }
 

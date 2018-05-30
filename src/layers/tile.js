@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import {Method} from '../Method';
+import {Method} from '../method';
 import MapContext from '../mapContext';
 import ol_layer_Tile from 'ol/layer/Tile';
 
@@ -8,7 +8,6 @@ import ol_layer_Tile from 'ol/layer/Tile';
 class Tile extends React.Component{
 	constructor(props){
 		super(props);
-		this._name = props.name;
 		this._tile = {};
 		this.options = {
 			opacity : undefined,
@@ -41,7 +40,6 @@ class Tile extends React.Component{
 	}
 
 	componentDidMount() {
-
 		let options = Method.getOptions(Object.assign(this.options, this.props));
 
 		this._tile = new ol_layer_Tile(options);
@@ -49,7 +47,7 @@ class Tile extends React.Component{
       		this.vector.setZIndex(this.props.zIndex);
 		}
 		
-		this.props.mapComponent.map.layers[this._name] = this;
+		this.props.mapComponent.map.layers.push(this._tile);
 		this.props.mapComponent.map.addLayer(this._tile);
 		
 
@@ -60,7 +58,7 @@ class Tile extends React.Component{
 	}
 
 	componentWillUnmount() {
-		this.props.mapComponent.map._map.removeLayer(this.tile);
+		this.props.mapComponent.map.removeLayer(this.tile);
 	}
 
 	render() {
@@ -69,7 +67,6 @@ class Tile extends React.Component{
 }
 
 Tile.propTypes = {
-	name : PropTypes.string.isRequired,
 	source : PropTypes.object.isRequired
 }
 

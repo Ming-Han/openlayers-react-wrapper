@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import {Method} from '../Method';
+import {Method} from '../method';
 import MapContext from '../mapContext';
 import ol_layer_Heatmap from 'ol/layer/heatmap'
 
@@ -8,7 +8,6 @@ class HeatMap extends React.Component{
     constructor(props){
         super(props);
         this._heatmap = undefined,
-        this._name = props.name,
         this.options = {
             gradient : undefined,
             radius : undefined,
@@ -50,7 +49,7 @@ class HeatMap extends React.Component{
       		this._vector.setZIndex(this.props.zIndex);
 		}
 		
-		this.props.mapComponent.map.layers[this._name] = this;
+		this.props.mapComponent.map.layers(this._heatmap);
 		this.props.mapComponent.map.addLayer(this._heatmap);
 		
 
@@ -61,7 +60,7 @@ class HeatMap extends React.Component{
 	}
 
 	componentWillUnmount() {
-		this.props.mapComponent.map._map.removeLayer(this._heapmap);
+		this.props.mapComponent.map.removeLayer(this._heapmap);
 	}
 
 	render() {
@@ -70,7 +69,6 @@ class HeatMap extends React.Component{
 }
 
 HeatMap.propTypes = {
-	name : PropTypes.string.isRequired,
 	source : PropTypes.object.isRequired
 }
 

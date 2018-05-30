@@ -1,6 +1,6 @@
 import * as React from 'react';
 import MapContext from './mapContext';
-import {Method} from './Method';
+import {Method} from './method';
 import ol_map from 'ol/map';
 import style from './Map.css';
 
@@ -12,12 +12,14 @@ to creat those of properties.*/
 class Map extends React.Component{
 	constructor(props){
 		super(props);
+		this.props.mapComponent.map = this;
 		this.mapDiv ; 
-		this._map = {} ;
-		this.layers = {};
+		this._map = undefined ;
+		this.layers = [];
 		this.interactions = {};
 		this.controls = {};
 		this.overlays = {};
+		this.view = {};
 		this.options = {
 			pixelRatio : undefined,
 			keyboardEventTarget : undefined,
@@ -51,16 +53,13 @@ class Map extends React.Component{
 		}
 	}
 
-	componentDidMount() {
-		this._map.setTarget(this.mapDiv);
-	}
-
+	// openlayer method wrapper 
 	addLayer(layers) {
-		this._map.addLayer(layers);
+		if(this._map != undefined )
+			this._map.addLayer(layers);
 	}
 
 	addControl(controls) {
-		console.log(controls)
 		this._map.addControl(controls);	
 	}
 
@@ -82,18 +81,29 @@ class Map extends React.Component{
 	}
 
 	setView(view) {
-		this._map.setView(view);
+		if(this._map != undefined)
+			this._map.setView(view);
 	}
 
-	render(){
+	// react original method 
+	componentDidMount() {
+		console.log('map didMount')
 		let options = Method.getOptions(Object.assign(this.options, this.props));
+
+		options.layers = this.layers;
+		options.view = this.view;
 		this._map = new ol_map(options);
+
 		let olEvents = Method.getEvents(this.events, this.props);
 		for(let eventName in olEvents) {
       		this._map.on(eventName, olEvents[eventName]);
 		}
-		this.props.mapComponent.map = this;
+		this._map.setTarget(this.mapDiv);
 
+	}
+
+	render(){
+		console.log('map render ')
 		return (
 			<div>
 				<div className = {style["openlayers-map"]} ref={(el) => {this.mapDiv = el ;}} >
